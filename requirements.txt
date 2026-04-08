@@ -1,0 +1,9 @@
+edge-tts==7.2.7
+faster-whisper==1.2.1
+mss==10.1.0
+numpy==2.4.4
+Pillow==12.2.0
+pygame==2.6.1
+requests==2.33.1
+sounddevice==0.5.5
+vosk==0.3.45
