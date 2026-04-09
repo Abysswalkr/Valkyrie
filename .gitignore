@@ -1,0 +1,17 @@
+# Entornos virtuales de Python
+env/
+venv/
+.env/
+
+# Archivos de caché de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Modelos de IA
+models/
+
+# Archivos temporales generados por asistente
+temp_audio.wav
+temp_capture.jpg
+

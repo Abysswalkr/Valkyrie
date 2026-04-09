@@ -17,7 +17,7 @@ class OllamaVisionBrain:
         self,
         base_url: str = "http://localhost:11434",
         model_name: str = "llava",
-        timeout_seconds: int = 90,
+        timeout_seconds: int = 300,
     ) -> None:
         self.base_url = base_url.rstrip("/")
         self.model_name = model_name

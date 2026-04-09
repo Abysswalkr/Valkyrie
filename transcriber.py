@@ -24,21 +24,16 @@ class Transcriber:
         self.model, self.device = self._load_model()
 
     def _load_model(self) -> tuple[WhisperModel, str]:
-        try:
-            model = WhisperModel(
-                self.model_size,
-                device="cuda",
-                compute_type="float16",
-            )
-            return model, "cuda"
-        except Exception:
-            # Fallback para no bloquear todo el asistente si CUDA no esta listo.
-            model = WhisperModel(
-                self.model_size,
-                device="cpu",
-                compute_type="int8",
-            )
-            return model, "cpu"
+        # Forzar el uso de CPU por ahora
+        # La libreria marcaba que CUDA estaba disponible, pero 
+        # carece de los archivos DLL exactos (como cublas64_12.dll)
+        # al momento de procesar verdaderamente los audios.
+        model = WhisperModel(
+            self.model_size,
+            device="cpu",
+            compute_type="int8",
+        )
+        return model, "cpu"
 
     def transcribe(self, audio_path: str | Path) -> str:
         audio_path = Path(audio_path)

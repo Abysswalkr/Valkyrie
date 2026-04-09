@@ -52,13 +52,21 @@ class TTSSpeaker:
 
     def _synthesize_to_file(self, text: str, output_path: Path) -> None:
         async def _runner() -> None:
-            communicate = edge_tts.Communicate(
-                text=text,
-                voice=self.voice,
-                rate=self.rate,
-                volume=self.volume,
-            )
-            await communicate.save(str(output_path))
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    communicate = edge_tts.Communicate(
+                        text=text,
+                        voice=self.voice,
+                        rate=self.rate,
+                        volume=self.volume,
+                    )
+                    await communicate.save(str(output_path))
+                    break  # Exito! Salimos del loop
+                except Exception:
+                    if attempt == max_retries - 1:
+                        raise  # Si fue el ultimo intento, levantamos el error original
+                    await asyncio.sleep(1.0) # Esperamos poquito antes de reintentar
 
         try:
             asyncio.run(_runner())

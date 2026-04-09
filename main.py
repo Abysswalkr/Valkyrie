@@ -32,7 +32,7 @@ class GamingAssistantApp:
         )
         whisper_model_size = os.getenv("WHISPER_MODEL_SIZE", "medium")
         ollama_url = os.getenv("OLLAMA_URL", "http://localhost:11434")
-        ollama_model = os.getenv("OLLAMA_MODEL", "llama3.2-vision")
+        ollama_model = os.getenv("OLLAMA_MODEL", "llava-phi3")
         edge_voice = os.getenv("EDGE_TTS_VOICE", "es-MX-DaliaNeural")
 
         self.listener = AudioListener(
@@ -83,7 +83,8 @@ class GamingAssistantApp:
         logging.info("Pregunta transcrita: %s", question)
 
         answer = self.brain.ask(question, self.temp_capture_path)
-        logging.info("Respuesta generada por Ollama.")
+        logging.info("Respuesta generada por Ollama:")
+        print(f"\n======== OLLAMA DICE ========\n{answer}\n=============================\n")
 
         self.speaker.speak(answer)
 
